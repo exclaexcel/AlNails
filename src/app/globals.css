@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* Paleta da AL Nails (formulário, item 1.4) + 1 tom derivado para texto dourado */
+@theme inline {
+  --color-offwhite: #f7f3ed; /* fundo principal */
+  --color-ink: #171717; /* textos e logo */
+  --color-gold: #c9a45c; /* bordas, linhas e destaques (não usar em texto sobre claro) */
+  --color-champagne: #dcc9a3; /* variação suave do dourado */
+  --color-taupe: #8a7b6a; /* textos secundários */
+  --color-bronze: #8a6425; /* dourado escurecido (derivado) para ícones e frases em script: contraste 4,8:1 */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-montserrat), system-ui, sans-serif;
+  --font-script: var(--font-allura), cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: color-mix(in srgb, var(--color-champagne) 35%, var(--color-offwhite));
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+@keyframes sheet-in {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.sheet-in {
+  animation: sheet-in 0.25s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .sheet-in {
+    animation: none;
+  }
+}
