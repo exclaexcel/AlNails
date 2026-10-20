@@ -26,6 +26,33 @@ export function whatsappUrl(extra?: string) {
   return `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(msg)}`;
 }
 
+// Card de divulgação feito pela Ana (Instagram): vagas de modelo para gerar conteúdo.
+// Seleção 1x por semana, conforme disponibilidade (WhatsApp da Ana, 17/10/2026).
+export const modelProgram = {
+  label: "Vagas para modelo do mês",
+  intro: "5 vagas disponíveis por mês para gerar conteúdo para o Instagram.",
+  how: {
+    title: "Como funciona",
+    items: [
+      "Postar fotos de unhas no Instagram",
+      "Gravar vídeos de manutenção",
+      "Divulgar o meu trabalho e o AL Nails",
+    ],
+  },
+  purpose: "O objetivo é fortalecer o meu portfólio e alcançar mais pessoas através do meu conteúdo.",
+  requirements: {
+    title: "Requisitos para ser modelo",
+    items: [
+      { icon: "calendar" as IconName, text: "Ter tempo disponível de acordo com os horários disponibilizados durante o mês" },
+      { icon: "image" as IconName, text: "Permitir o uso da imagem das suas mãos (fotos e vídeos) para as redes sociais do AL Nails" },
+      { icon: "coin" as IconName, text: "Pagamento somente da taxa do material (não será cobrado o valor do procedimento)" },
+    ],
+  },
+  note: "Seleção 1x por semana, de acordo com a disponibilidade das modelos. Vagas limitadas!",
+  formUrl: "https://forms.gle/DXxgZ1jvksa1X5dV7",
+  ctaLabel: "Quero me candidatar",
+};
+
 export const location = {
   // Ana escolheu mostrar só bairro e cidade. Confirmado pela Dany (17/10/2026): Almirante Tamandaré é no Paraná (DDD 41).
   neighborhood: "Campina do Arruda",
@@ -38,7 +65,8 @@ export const hours = "sábados, das 9h às 17h";
 
 export type IconName =
   | "nail" | "jar" | "shield" | "scissors" | "drop" | "sparkle" | "refresh" | "x" | "plus"
-  | "heart" | "calendar" | "calendarx" | "clock" | "people" | "card" | "pencil" | "xcircle" | "alert";
+  | "heart" | "calendar" | "calendarx" | "clock" | "people" | "card" | "pencil" | "xcircle" | "alert"
+  | "image" | "coin";
 
 export type Service = { name: string; price: number; icon: IconName; note?: string };
 export type ServiceGroup = { title?: string; items: Service[] };

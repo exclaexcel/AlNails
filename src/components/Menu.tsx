@@ -8,6 +8,7 @@ import {
   careClosing,
   contact,
   location,
+  modelProgram,
   rules,
   rulesClosing,
   serviceGroups,
@@ -16,7 +17,7 @@ import {
   whatsappUrl,
 } from "@/content/content";
 
-type PanelId = "servicos" | "regras" | "cuidados" | "local";
+type PanelId = "servicos" | "regras" | "cuidados" | "local" | "modelos";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
 
@@ -138,6 +139,12 @@ export default function Menu() {
           <span className="flex-1">Conheça meu trabalho</span>
           <Icon name="chevron" size={18} className="text-bronze" />
         </a>
+
+        <button type="button" onClick={() => setOpen("modelos")} aria-haspopup="dialog" className={btnOutline}>
+          <Icon name="sparkle" size={22} className="text-bronze" />
+          <span className="flex-1">{modelProgram.label}</span>
+          <Icon name="chevron" size={18} className="text-bronze" />
+        </button>
 
         <button type="button" onClick={() => setOpen("regras")} aria-haspopup="dialog" className={btnOutline}>
           <Icon name="calendar" size={22} className="text-bronze" />
@@ -267,6 +274,54 @@ export default function Menu() {
             </p>
             <p className="font-script text-[26px] leading-none text-bronze">{brand.signature}</p>
           </div>
+        </Modal>
+      )}
+
+      {open === "modelos" && (
+        <Modal title={modelProgram.label} onClose={close}>
+          <p className="pt-1 text-[15px] leading-snug text-ink/85">{modelProgram.intro}</p>
+
+          <div className="my-4 flex items-center gap-3" aria-hidden="true">
+            <span className="h-px flex-1 bg-gold/60" />
+            <span className="text-[12px] font-medium uppercase tracking-[0.16em] text-bronze">{modelProgram.how.title}</span>
+            <span className="h-px flex-1 bg-gold/60" />
+          </div>
+          <ul className="space-y-3">
+            {modelProgram.how.items.map((t) => (
+              <li key={t} className="flex items-center gap-3">
+                <IconBadge name="sparkle" />
+                <span className="text-[15px] leading-snug text-ink">{t}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-[14px] leading-snug text-ink/75">{modelProgram.purpose}</p>
+
+          <div className="my-4 flex items-center gap-3" aria-hidden="true">
+            <span className="h-px flex-1 bg-gold/60" />
+            <span className="text-[12px] font-medium uppercase tracking-[0.16em] text-bronze">{modelProgram.requirements.title}</span>
+            <span className="h-px flex-1 bg-gold/60" />
+          </div>
+          <ul className="space-y-3.5">
+            {modelProgram.requirements.items.map((r) => (
+              <li key={r.text} className="flex items-center gap-3">
+                <IconBadge name={r.icon} />
+                <span className="text-[15px] leading-snug text-ink">{r.text}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-5 text-center text-[13px] leading-snug text-ink/75">{modelProgram.note}</p>
+
+          <a
+            href={modelProgram.formUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${btnBase} mt-5 bg-ink text-offwhite shadow-[0_8px_22px_rgba(23,23,23,0.28)] hover:bg-[#2a2520]`}
+          >
+            <Icon name="sparkle" size={22} className="text-offwhite" />
+            <span className="flex-1">{modelProgram.ctaLabel}</span>
+            <Icon name="chevron" size={18} className="text-gold" />
+          </a>
         </Modal>
       )}
     </>
