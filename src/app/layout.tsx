@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { images } from "@/content/content";
 
 const cormorant = localFont({
   src: [
@@ -26,10 +27,28 @@ const montserrat = localFont({
   display: "swap",
 });
 
+const title = "AL Nails | Mais que unhas, é autoestima";
+const description =
+  "Alongamento, banho de gel, blindagem e cuidado com as unhas em Almirante Tamandaré. Veja valores, regras de agendamento e agende pelo WhatsApp.";
+
 export const metadata: Metadata = {
-  title: "AL Nails | Mais que unhas, é autoestima",
-  description:
-    "Alongamento, banho de gel, blindagem e cuidado com as unhas em Almirante Tamandaré. Veja valores, regras de agendamento e agende pelo WhatsApp.",
+  // Quando publicar (Vercel), trocar por metadataBase: new URL("https://dominio-real.com")
+  // para o preview de link (WhatsApp/Instagram) usar a URL certa da imagem.
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: images.hero, alt: images.heroAlt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [images.hero],
+  },
 };
 
 export const viewport: Viewport = {

@@ -26,14 +26,34 @@ const btnOutline = `${btnBase} border border-gold bg-white/55 text-ink shadow-[0
 
 function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
     const prevFocus = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
     closeRef.current?.focus();
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => {
@@ -49,6 +69,7 @@ function Modal({ title, onClose, children }: { title: string; onClose: () => voi
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-label={title}
@@ -177,7 +198,7 @@ export default function Menu() {
               )}
               <ul>
                 {g.items.map((s) => (
-                  <li key={g.title + s.name} className="border-b border-champagne/70 last:border-b-0">
+                  <li key={s.name} className="border-b border-champagne/70 last:border-b-0">
                     <a
                       href={whatsappUrl(`Tenho interesse em: ${g.title ? g.title + " – " : ""}${s.name}.`)}
                       target="_blank"
